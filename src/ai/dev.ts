@@ -1,1 +1,2 @@
-// Flows will be imported for their side effects in this file.
+import '@/ai/flows/summarize-furia-news.ts';
+import '@/ai/flows/answer-fan-questions.ts';
