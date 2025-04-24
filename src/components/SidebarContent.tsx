@@ -16,11 +16,13 @@ import {getFuriaNews, NewsArticle} from '@/services/furia-news';
 import {getFuriaPlayers, Player} from '@/services/furia-players';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {ScrollArea} from '@/components/ui/scroll-area';
+import {LocaleSelect} from '@/components/LocaleSelect';
 
 const SidebarContentComponent: React.FC = () => {
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
-
+  const [locale, setLocale] = useState('pt-BR');
+  
   useEffect(() => {
     const loadNews = async () => {
       const newsArticles = await getFuriaNews();
@@ -39,6 +41,9 @@ const SidebarContentComponent: React.FC = () => {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
+        <div className='w-full flex justify-end'>
+        <LocaleSelect locale={locale} onLocaleChange={setLocale} />
+        </div>
         <CardTitle className="text-lg">FURIA</CardTitle>
       </SidebarHeader>
       <SidebarContent>
