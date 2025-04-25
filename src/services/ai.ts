@@ -12,19 +12,20 @@ export async function getAIResponse(message: string): Promise<string> {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      throw new Error(`HTTP error! status: ${response.status}, text: ${errorText}`);
     }
 
     const data = await response.json()
 
     if(data.error){
         console.error("AI response error: ", data.error);
-        return data.error
+        return `AI Error: ${data.error}`;
     }
     console.log("AI response: ", data.response);    
     return data.response;    
-  } catch (error) {    
+  } catch (error: any) {    
     console.error("Error getting AI response:", error);    
-    return "Error: Could not get response from AI";    
+    return `Error: Could not get response from AI. Details: ${error.message}`;
   }
 }
